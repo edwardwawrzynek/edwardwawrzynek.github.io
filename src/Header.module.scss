@@ -1,0 +1,12 @@
+@import './variables.scss';
+
+.header {
+  background-color: $header-bg;
+  margin: 0;
+  padding: 1.0rem;
+
+  color: $page-fg;
+  font-family: Montserrat;
+  text-transform: uppercase;
+  font-size: 15pt;
+}
