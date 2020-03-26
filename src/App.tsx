@@ -12,9 +12,7 @@ export default class App extends Component<any, any> {
           <span>Edward Wawrzynek</span>
         </Header>
         <div className={styles.content}>
-          
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed molestie arcu. Curabitur ut efficitur nunc, eget 
+          This site is under construction.
         </div>
         <Footer/>
       </Fragment>
