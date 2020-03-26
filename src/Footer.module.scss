@@ -3,10 +3,7 @@
 .footer {
   border-top: 1px solid $header-bg;
   background-color: $footer-bg;
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
-  height: 3rem;
+  min-height: 3rem;
   padding: 0.5rem;
   margin: 0;
   box-sizing: border-box;
@@ -34,6 +31,6 @@
 }
 
 .logo {
-  height: 100%;
+  height: 2rem;
   padding: 0 1rem 0 1rem;
 }
