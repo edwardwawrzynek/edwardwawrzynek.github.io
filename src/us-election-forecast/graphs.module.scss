@@ -1,0 +1,47 @@
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.flexRowColNoGrow {
+  flex: 0 1 auto;
+  margin-top: auto;
+}
+
+.flexRowSpace {
+  flex: 1 1 auto;
+}
+
+.candidateLabelLeft {
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+.candidateLabelRight {
+  flex: 1 1 auto;
+  text-align: right;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0;
+}
+
+h3 {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.container {
+  margin-bottom: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.stateContainer {
+  max-width: 600px;
+  margin: 0 auto;
+}
