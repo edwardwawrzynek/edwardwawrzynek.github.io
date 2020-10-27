@@ -131,6 +131,11 @@ export class StateMap extends Component<StateMapProps, StateMapState> {
     }
     return (
       <Fragment>
+        <div className={styles.stateMapTitle}>
+          <strong>Expected State and District Results</strong>
+          <br />
+          <span>Click on a State for Details</span>
+        </div>
         <USMap 
           width={"100%"} 
           height={""} 
@@ -150,7 +155,7 @@ export class StateMap extends Component<StateMapProps, StateMapState> {
           />
         }
         {this.state.curState == null &&
-          <div className={styles.stateContainer} style={{marginBottom: "3rem"}}>
+          <div className={styles.stateContainer}>
             <h2>No State Selected</h2>
           </div>
         }
@@ -179,18 +184,18 @@ export function Histogram(props: HistogramProps) {
 
   return (
     <div className={styles.histogramCont}>
-      <strong>Electoral Vote Distribution</strong>
+      <strong>Electoral College Vote Distribution</strong>
       <div className={styles.histogram}>
         {res}
       </div>
       <div className={styles.histogramAxis}>
-        <div className={styles.histogramAxisEntry}>000</div>
+        <div className={styles.histogramAxisEntry}>538</div>
         <div className={styles.histogramAxisExpand} />
-        <div className={styles.histogramAxisEntry}>067</div>
+        <div className={styles.histogramAxisEntry}>472</div>
         <div className={styles.histogramAxisExpand} />
-        <div className={styles.histogramAxisEntry}>135</div>
+        <div className={styles.histogramAxisEntry}>405</div>
         <div className={styles.histogramAxisExpand} />
-        <div className={styles.histogramAxisEntry}>202</div>
+        <div className={styles.histogramAxisEntry}>337</div>
         <div className={styles.histogramAxisExpand} />
         <div className={styles.histogramAxisEntry}>270</div>
         <div className={styles.histogramAxisExpand} />

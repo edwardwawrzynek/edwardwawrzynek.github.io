@@ -56,8 +56,11 @@ export default class App extends Component<{}, AppState> {
           height={"2rem"}
         />
         <p><strong>Chance of Electoral College Tie: </strong> {(this.state.cur_data.tie_prob * 100).toFixed(2)}% </p>
+        <hr />
         <Histogram candidates={this.state.candidates} data={this.state.cur_data.electoral_votes} />
+        <hr />
         <StateMap candidates={this.state.candidates} states={this.state.cur_data.states} />
+        <hr />
         <State candidates={this.state.candidates} name={"Popular Vote"} state={this.state.cur_data.states["Popular Vote"]} />
       </Fragment>
     );
