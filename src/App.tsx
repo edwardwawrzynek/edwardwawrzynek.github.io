@@ -19,16 +19,20 @@ export default class App extends Component<any, any> {
       <Router>
         <div className={styles.appWrapper}>
           <Header>
-            <span>Edward Wawrzynek</span>
+            <Link to="/">Edward Wawrzynek</Link>
           </Header>
 
           <AppContent>
             <Switch>
-              <Route path="/us-election-forecast-2020">
+              <Route exact path="/election-2020">
                 <ElectionForecast />
               </Route>
-              <Route path="/">
+              <Route exact path="/">
                 <p>Hello! This page is under construction.</p>
+                <Link to="/election-2020">2020 US Election Forecast</Link>
+              </Route>
+              <Route path="/">
+                <h1>Page Not Found</h1>
               </Route>
             </Switch>
           </AppContent>

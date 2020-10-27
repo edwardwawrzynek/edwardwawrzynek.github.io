@@ -42,6 +42,50 @@ h3 {
 }
 
 .stateContainer {
-  max-width: 600px;
-  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.stateMargin {
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.histogram {
+  display: flex;
+  align-items: flex-end;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.histogramBar {
+  flex: 1 1 auto;
+}
+
+.histogramCont {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.histogramAxis {
+  display: flex;
+}
+
+.histogramAxisEntry {
+  flex: 0 1 20px;
+}
+
+.histogramAxisExpand {
+  flex: 1 1 100px;
+}
+
+.margin {
+  text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .histogramAxisMobileNone {
+    display: none;
+  }
 }
