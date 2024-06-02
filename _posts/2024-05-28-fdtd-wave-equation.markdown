@@ -1,11 +1,13 @@
 ---
 layout: post
-title:  "Finite difference time domain (FDTD) solver for the 2D wave equation"
-date:   2024-05-28 00:00:00 -0600
-categories: jekyll update
+title:  "FDTD wave equation solver"
+summary: "An interactive finite difference time domain solver for the 2d wave equation, demonstrating various wave phenomenology."
+header_url: /images/2024-05-28-fdtd-wave-equation/header.png
 ---
 
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+<img src="/images/2024-05-28-fdtd-wave-equation/app.png"/>
 
 I developed a GPU accelerated finite difference time domain (FDTD) solver for the wave equation and a graphical interface to construct boundary conditions and visualize solutions in real time. The description below gives a brief introduction to the FDTD method, a practical implementation and some example systems. The solver and it's graphical interface can be [found on github](https://github.com/edwardwawrzynek/waves_sim).
 
