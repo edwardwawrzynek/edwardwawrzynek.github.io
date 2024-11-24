@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="generator" content="pandoc" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>FDTD wave equation solver – Edward Wawrzynek </title>
+            <style>
+                code{white-space: pre-wrap;}
+                span.smallcaps{font-variant: small-caps;}
+                span.underline{text-decoration: underline;}
+                div.column{display: inline-block; vertical-align: top; width: 50%;}
+                div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+                ul.task-list{list-style: none;}
+            </style>
+            <link rel="stylesheet" href="/panam.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        </head>
+        <body>
+            <a class="link_none" href="/">
+                <h1 class="title_header">
+                    <span class="title_bold">Edward</span> 
+                    Wawrzynek
+                </h1>
+            </a>
+            <hr/>
+            
+            <h1>FDTD wave equation solver</h1>
+<p><img src="/images/2024-05-28-fdtd-wave-equation/app.png"/></p>
+<p>I developed a GPU accelerated finite difference time domain (FDTD) solver for the wave equation and a graphical interface to construct boundary conditions and visualize solutions in real time. The description below gives a brief introduction to the FDTD method, a practical implementation and some example systems. The solver and it’s graphical interface can be <a href="https://github.com/edwardwawrzynek/waves_sim">found on github</a>.</p>
+<h2 id="introduction">Introduction</h2>
+<p>The wave equation is a second order PDE appearing in the description of a wide range of physical systems. It describes the propagation of disturbances (waves) in both mechanic systems and electromagnetic waves in free space.</p>
+<p>We consider some scalar field <span class="math inline">\(u(\textbf{x}, t)\)</span> which describes the system of interest. In a mechanical system, <span class="math inline">\(u\)</span> might describe displacement of a solid or fluid. In electromagnetics, <span class="math inline">\(u\)</span> might be a component of the electric field. For such a scalar system, the wave equation is</p>
+<p><span class="math display">\[ \nabla^2 u - \frac{1}{c^2} \frac{\partial^2 u}{\partial^2 t} = 0, \tag{1}\]</span></p>
+<p>where <span class="math inline">\(c\)</span> is some positive real coefficient that may vary with space. It describes the speed of the waves in the system and is related to the properties of the media in which propagation occurs.</p>
+<p>Our goal is to efficiently find numerical solutions to this equation subject to arbitrary boundary conditions.</p>
+<h2 id="fdtd">FDTD</h2>
+<p>We implement the finite difference time domain (FDTD) method described by Yee <a href="#ref1">[1]</a>. The solver is implemented with OpenGL. To allow for a simple graphical interface to specify boundary conditions and media properties, we only consider 2 dimensional systems.</p>
+<p>In order to perform numerical computations, we must discretize <span class="math inline">\(u\)</span> in both space and time. We consider a grid with physical spacing <span class="math inline">\(\Delta x\)</span> and timesteps <span class="math inline">\(\Delta t\)</span>. We are only interested in the value of <span class="math inline">\(u\)</span> at these points, which we denote as</p>
+<p><span class="math display">\[u_{i,j}^n = u(i\Delta x, j\Delta x, n\Delta t).\]</span></p>
+<p>We need a way to numerical approximate the derivatives involved in the wave equation. For the spacial derivative in the x direction, we can simply use the second symmetric derivative,</p>
+<p><span class="math display">\[\frac{\partial^2 u}{\partial^2 x} = \lim_{h \to 0} \frac{u(x + h, y, t) - 2u(x, y, t) + u(x - h, y, t)}{h^2} \approx \frac{u_{i+1,j}^n - 2u_{i,j}^n + u_{i-1,j}^n}{\Delta x^2},\]</span></p>
+<p>with a similar result in the y direction,</p>
+<p><span class="math display">\[\frac{\partial^2 u}{\partial^2 y} \approx \frac{u_{i,j+1}^n - 2u_{i,j}^n + u_{i,j-1}^n}{\Delta x^2},\]</span></p>
+<p>giving the combined Laplacian</p>
+<p><span class="math display">\[\nabla^2 u = \frac{\partial^2 u}{\partial^2 x} + \frac{\partial^2 u}{\partial^2 y} \approx \frac{u_{i+1,j}^n + u_{i,j+1}^n - 4u_{i,j}^n + u_{i-1,j}^n + u_{i,j-1}^n}{\Delta x^2}. \tag{2}\]</span></p>
+<p>The time derivative in the wave equation presents more trouble. Because the simulation is performed in the time domain, we know only <span class="math inline">\(u_{i,j}^n\)</span> for <span class="math inline">\(n &lt; N\)</span>, where <span class="math inline">\(N\)</span> is the current time step. We can decompose the wave equation into two coupled PDEs which are first order in time, that is,</p>
+<p><span class="math display">\[\begin{align} \frac{\partial u}{\partial t} &amp;= u&#39;, \tag{3} \\ \frac{\partial u&#39;}{\partial t} &amp;= c^2 \nabla^2 u. \tag{4} \end{align}\]</span></p>
+<p>We can approximate the first PDE <span class="math inline">\((3)\)</span> with the limit definition as</p>
+<p><span class="math display">\[u&#39; = \lim_{h \to 0} \frac{u(x,y,t+h) - u(x,y,t)}{h} \approx \frac{u_{i,j}^{n+1} - u_{i,j}^n}{\Delta t},\]</span></p>
+<p>which we rearrange to yield</p>
+<p><span class="math display">\[u_{i,j}^{n+1} = u_{i,j}^n + \left(\Delta t\right) u{&#39;}_{i,j}^{n}.\]</span></p>
+<p>Similarly, for the second PDE <span class="math inline">\((4)\)</span> we have</p>
+<p><span class="math display">\[\frac{\partial u&#39;}{\partial t} = \frac{u{&#39;}_{i,j}^{n} - u{&#39;}_{i,j}^{n-1}}{\Delta t} = c^2 \nabla^2 u.\]</span></p>
+<p>Rearranging, we can isolate the term for the current state of the system, <span class="math inline">\(u{&#39;}^{n}\)</span>, and have</p>
+<p><span class="math display">\[ u{&#39;}_{i,j}^{n} = u{&#39;}_{i,j}^{n-1} + \left(\Delta t\right) c^2 \nabla^2 u.\]</span></p>
+<p>Combining with <span class="math inline">\((2)\)</span>, we have the system</p>
+<p><span class="math display">\[\begin{align} u{&#39;}_{i,j}^{n} &amp;= u{&#39;}_{i,j}^{n-1} + \frac{\Delta t}{\Delta x^2}\left(u_{i+1,j}^n + u_{i,j+1}^n - 4u_{i,j}^n + u_{i-1,j}^n + u_{i,j-1}^n\right), \tag{5}\\
+u_{i,j}^{n+1} &amp;= u_{i,j}^n + \left(\Delta t\right) u{&#39;}_{i,j}^{n}, \tag{6}\end{align}\]</span></p>
+<p>which we can easily solve via iteration. We initialize <span class="math inline">\(u^2_{i,j}\)</span> and <span class="math inline">\(u{&#39;}^1_{i,j}\)</span> from initial conditions. For <span class="math inline">\(n \geq 2\)</span>, each round of iteration consists of two steps: 1. update <span class="math inline">\(u&#39;\)</span> from <span class="math inline">\((5)\)</span>, and 2. update <span class="math inline">\(u\)</span> from <span class="math inline">\((6)\)</span> using the just computed <span class="math inline">\(u&#39;\)</span>.</p>
+<h2 id="boundary-conditions">Boundary Conditions</h2>
+<p>The solver supports both Dirichlet (<span class="math inline">\(u = 0\)</span>) and Neumann (<span class="math inline">\(\frac{\partial u}{\partial x} = 0\)</span> or <span class="math inline">\(\frac{\partial u}{\partial y} = 0\)</span>) boundary conditions. The Dirichlet condition can be implemented by setting <span class="math inline">\(u_{i,j}^n = 0\)</span> at each round of iteration. The Neumann condition can be implemented by fixing <span class="math inline">\(u_{i,j}^n\)</span> to match its appropriate neighbor—one of <span class="math inline">\(u_{i-1,j}^n\)</span>, <span class="math inline">\(u_{i+1,j}^n\)</span>, <span class="math inline">\(u_{i,j-1}^n\)</span>, or <span class="math inline">\(u_{i,j+1}^n\)</span>, depending on the orientation of the surface on which the boundary condition is imposed.</p>
+<h2 id="boundary-layer">Boundary Layer</h2>
+<p>The discretization grid is bound over some finite domain <span class="math inline">\((i, j) \in [0, I] \times [0, J]\)</span>. At the edges of that domain, we cannot evaluate <span class="math inline">\((2)\)</span> and instead have to apply some boundary condition. Ideally, we would like disturbances which reach the edge of the domain to be absorbed. Unfortunately, both the Dirichlet and Neumann boundary conditions lead to reflection rather than absorption, shown in Figure 1.</p>
+<center>
+    <video width="400" height="400" controls>
+        <source src="/images/2024-05-28-fdtd-wave-equation/no_boundary.webm" type="video/webm">
+        Video not supported.
+    </video>
+
+    <p>Figure 1: Wave propagation with Dirichlet boundary condition at the edge of the simulation domain. The wave reflects off the edges, creating a standing wave pattern.</p>
+</center>
+<p>One way to implement absorption is with a layer near the edge of the domain over which we damp the response of <span class="math inline">\(u\)</span> <a href="#ref2">[2]</a>. We define a damping function</p>
+<p><span class="math display">\[\sigma(d) = \tan^{-1}\left(\frac{2d}{D} + 1\right),\]</span></p>
+<p>where <span class="math inline">\(d\)</span> is the distance from the edge of the domain and <span class="math inline">\(D\)</span> is the width of the absorbing layer. The function approaches 0 near the edge of the domain. In the layer, we modify the iteration step <span class="math inline">\((6)\)</span> to include damping,</p>
+<p><span class="math display">\[u_{i,j}^{n+1} = \sigma(i,j)u_{i,j}^n + \left(\Delta t\right) u{&#39;}_{i,j}^{n}. \tag{7}\]</span></p>
+<p>The damping term dissipates energy in the wave while providing a smooth impedance discontinuity to minimize reflections near the boundary.</p>
+<center>
+    <video width="400" height="400" controls>
+        <source src="/images/2024-05-28-fdtd-wave-equation/boundary.webm" type="video/webm">
+        Video not supported.
+    </video>
+
+    <p>Figure 2: Wave propagation with an absorbing boundary layer. The white lines indicate the edge of the layer. The wave is almost fully damped before reaching the edge of the simulation domain.</p>
+</center>
+<h2 id="implementation">Implementation</h2>
+<p>The algorithm described above is implemented in a GLSL fragment shader. The shader operates on a single texture, with the following channels: 1. <code>.x</code> - <span class="math inline">\(u_{i,j}^{n}\)</span>, 2. <code>.y</code> - <span class="math inline">\(u{&#39;}_{i,j}^{n}\)</span>, 3. <code>.z</code> - <span class="math inline">\(c_{i,j},\)</span> the value of wave speed at the given point, 4. <code>.w</code> - boundary conditions (0 for no condition, 1 for a Neumann condition).</p>
+<p>The evaluation of the Laplacian follows <span class="math inline">\((2)\)</span> and is given below.</p>
+<pre class="glsl"><code>// calculate the new u_tt value for a point based on its neighbors
+float calc_wave_eq(ivec2 point, float u_point, float wave_speed) {
+    // get neighbors and calculate laplacian (via second symmetric derivative)
+    float u0 = get_value(ivec2(point.x - 1, point.y), u_point);
+    float u1 = get_value(ivec2(point.x + 1, point.y), u_point);
+    float u2 = get_value(ivec2(point.x, point.y - 1), u_point);
+    float u3 = get_value(ivec2(point.x, point.y + 1), u_point);
+
+    float laplace = (u0 + u1 + u2 + u3 - 4.0 * u_point) / (delta_x * delta_x);
+
+    return wave_speed * wave_speed * laplace;
+}</code></pre>
+<p>Calculation of the damping function <span class="math inline">\(\sigma(i,j)\)</span> is given below.</p>
+<pre class="glsl"><code>// return damping factor for a point
+float damping(vec2 point) {
+    ivec2 tex_size = textureSize(sim_texture, 0);
+    // get distance from point to closest edge
+    float dist = min(min(point.x, point.y), 
+      min(float(tex_size.x) - point.x, float(tex_size.y) - point.y));
+    if(dist &lt; damping_area_size) {
+        float norm = dist / damping_area_size;
+        return tanh(2.0 * norm + 1.0);
+    } else {
+        return 1.0;
+    }
+}</code></pre>
+<p>The main iteration loop follows <span class="math inline">\((5)\)</span> and <span class="math inline">\((7)\)</span> and is given below.</p>
+<pre class="glsl"><code>void main() {
+    vec4 point = texelFetch(sim_texture, ivec2(gl_FragCoord.xy), 0);
+    float u = point.x;
+    float u_t = point.y;
+    float ior_inv = point.z; // inverse index of refraction
+
+    float u_tt = calc_wave_eq(ivec2(gl_FragCoord.xy), u, 
+      ior_inv * wave_speed_vacuum);
+
+    u_t += u_tt * delta_t;
+    u_t *= damping(gl_FragCoord.xy);
+
+    u += u_t * delta_t;
+
+    color = vec4(u, u_t, point.b, point.a);
+}</code></pre>
+<h2 id="examples">Examples</h2>
+<h5 id="double-slit">Double Slit</h5>
+<p>A plane wave incident on two small slits with a small separation demonstrates a <a href="https://en.wikipedia.org/wiki/Double-slit_experiment">double-slit pattern</a>. When the plane wave passes through the slits, the resulting light diffracts, forming hemispherical wavefronts radiating from each slit. Interference between the two wavefronts creates the diffraction pattern.</p>
+<center>
+    <video width="400" height="400" controls>
+        <source src="/images/2024-05-28-fdtd-wave-equation/double_slit.webm" type="video/webm">
+        Video not supported.
+    </video>
+
+    <p>Figure 3: Double slit interference.</p>
+</center>
+<h5 id="impedance-mismatch">Impedance Mismatch</h5>
+<p>A plane wave incident on two media with varying refractive indexes produces both a transmitted wave and a reflection. The extend of mismatch between the media results in a differing distribution of power between the transmitted and reflected wave. Additionally, the speed of wave propagation changes in the different media.</p>
+<p>The circular wavefronts that appear to reflect off the corner between the three media are due to diffraction.</p>
+<center>
+    <video width="400" height="400" controls>
+        <source src="/images/2024-05-28-fdtd-wave-equation/impedance_mismatch.webm" type="video/webm">
+        Video not supported.
+    </video>
+
+    <p>Figure 4: Reflection and transmission of a plane wave across an impedance mismatch. The medium in the lower left has the highest refractive index, followed by the medium in the lower right and the free space in the upper region. </p>
+</center>
+<h5 id="total-internal-reflection">Total Internal Reflection</h5>
+<p>A plane wave incident on a media at an angle greater than the Brewster angle produces <a href="https://en.wikipedia.org/wiki/Total_internal_reflection">total internal reflection</a>, with little transmission.</p>
+<center>
+    <video width="400" height="400" controls>
+        <source src="/images/2024-05-28-fdtd-wave-equation/tir.webm" type="video/webm">
+        Video not supported.
+    </video>
+
+    <p>Figure 5: Total internal reflection. </p>
+</center>
+<h5 id="doppler-effect">Doppler Effect</h5>
+<p>A moving source causes an apparent change in frequency along the direction of motion, the <a href="https://en.wikipedia.org/wiki/Doppler_effect">doppler effect</a>.</p>
+<center>
+    <video width="400" height="400" controls>
+        <source src="/images/2024-05-28-fdtd-wave-equation/doppler.webm" type="video/webm">
+        Video not supported.
+    </video>
+
+    <p>Figure 6: Doppler effect with a source moving at 75% of the wave speed. </p>
+</center>
+<center>
+    <video width="400" height="400" controls>
+        <source src="/images/2024-05-28-fdtd-wave-equation/doppler_boom.webm" type="video/webm">
+        Video not supported.
+    </video>
+
+    <p>Figure 7: Shockwave created by a source moving at 200% of the wave speed. </p>
+</center>
+<h5 id="straight-vs-mitered-bends-in-a-waveguide">Straight vs Mitered Bends in a Waveguide</h5>
+<p>A wave encounters a bend section of waveguide, shown in Figure 6. The guide with the straight bend has a larger impedance discontinuity, resulting in lower transmission. The guide with a mitered bend has a smaller discontinuity, resulting in larger transmission. The amount of transmission through the line can be measured by the intensity of the field at the open end of the guide.</p>
+<center>
+    <video width="400" height="400" controls>
+        <source src="/images/2024-05-28-fdtd-wave-equation/pcb_tl.webm" type="video/webm">
+        Video not supported.
+    </video>
+
+    <p>Figure 8: Wave propagation across two bends in a waveguide.</p>
+</center>
+<h5 id="phased-array">Phased Array</h5>
+<p>A phased array constructed from 8 sources located <span class="math inline">\(\lambda/4\)</span> away from each other has a variable phase delay between elements, creating a steerable beam.</p>
+<center>
+    <video width="400" height="400" controls>
+        <source src="/images/2024-05-28-fdtd-wave-equation/phased_array.webm" type="video/webm">
+        Video not supported.
+    </video>
+
+    <p>Figure 8: An 8 element phased array sweeping from -60 to 60 degrees.</p>
+</center>
+<h2 id="references">References</h2>
+<p><span id="ref1">[1] Kane Yee, “Numerical solution of initial boundary value problems involving maxwell’s equations in isotropic media,” in IEEE Transactions on Antennas and Propagation, vol. 14, no. 3, pp. 302-307, May 1966, doi: <a href="https://doi.org/10.1109%2FTAP.1966.1138693">10.1109/TAP.1966.1138693</a>.</span></p>
+<p><span id="ref2">[2] Jean-Pierre Berenger, “A perfectly matched layer for the absorption of electromagnetic waves,” in Journal of Computational Physics, vol. 114, no. 2, pp 185-200, 1994, doi: <a href="https://doi.org/10.1006/jcph.1994.1159">10.1006/jcph.1994.1159</a>. </span></p>
+
+            <hr>
+                <small>
+            <center>
+
+            </center>
+                </small>
+        </body>
+</html>

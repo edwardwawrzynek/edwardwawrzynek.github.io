@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="generator" content="pandoc" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$ </title>
+            <style>
+                $styles.html()$
+            </style>
+            <link rel="stylesheet" href="/panam.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        </head>
+        <body>
+$body$
+
+            <hr>
+                <small>
+            <center>
+
+            </center>
+                </small>
+        </body>
+</html>
