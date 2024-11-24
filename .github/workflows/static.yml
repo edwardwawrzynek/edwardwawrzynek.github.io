@@ -32,7 +32,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install pandoc
-        run: sudo apt install pandoc build-essentials
+        run: sudo apt install pandoc make
       - name: Build
         run: make _clean & make
       - name: Setup Pages
