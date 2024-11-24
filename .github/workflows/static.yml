@@ -31,6 +31,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Install pandoc
+        run: sudo apt install pandoc build-essentials
+      - name: Build
+        run: make _clean & make
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
