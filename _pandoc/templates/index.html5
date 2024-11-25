@@ -15,6 +15,15 @@
             <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
         </head>
         <body>
+            <div class="header">
+                <div class="title_header">
+                    <a class="link_none" href="/">
+                        <span class="title_bold">Edward</span> Wawrzynek
+                    </a>
+                </div>
+                <a class="header_link" href="/">home</a>
+                <a class="header_link" href="/resume.html">cv</a>
+            </div>
 $body$
 
             <hr>

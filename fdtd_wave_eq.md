@@ -1,8 +1,5 @@
 ---
-layout: post
 title:  "FDTD wave equation solver"
-summary: "An interactive finite difference time domain solver for the 2d wave equation, demonstrating various wave phenomenology."
-header_url: /images/2024-05-28-fdtd-wave-equation/header.png
 ---
 
 <img src="/images/2024-05-28-fdtd-wave-equation/app.png"/>

@@ -3,12 +3,6 @@ pagetitle: Edward Wawrzynek
 template: index
 ---
 
-<a class="link_none" href="/">
-    <h1 class="title_header">
-        <span class="title_bold">Edward</span> 
-        Wawrzynek
-    </h1>
-</a>
 <p class="subtitle">University of Colorado Boulder</p>
 
 <img src="images/edward_wawrzynek.jpg" class="headshot" alt="Edward R. Wawrzynek"/>
@@ -17,7 +11,7 @@ Hello! I'm an undergraduate studying electrical engineering and applied mathemat
 
 I'm currently with the [Antenna Research Group](https://www.colorado.edu/lab/antenna/) at CU, where I'm working on developing electrically small antennas (ESAs) for HF communication applications. I previously worked in the High Speed Digital Engineering Group at CU, where I performed work on high bandwidth conductive ink structures and developed custom instrumentation for isothermal I-V characterization.
 
-In my free time, I enjoy taking [walks in the woods](/hiking.html). 
+In my free time, I enjoy taking [walks in the woods](/hiking.html), skiing, and biking. 
 
 I can be reached at <a href="mailto: edward@wawrzynek.com">edward@wawrzynek.com</a>.
 
