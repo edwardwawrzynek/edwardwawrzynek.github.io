@@ -185,3 +185,7 @@ h1 {
 .contentNoMargin {
     margin-right: 0 !important;
 }
+
+#attractor_canvas {
+    margin-bottom: auto;
+}
