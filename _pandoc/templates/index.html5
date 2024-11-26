@@ -4,6 +4,7 @@
             <meta charset="utf-8" />
             <meta name="generator" content="pandoc" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <meta name="description" content="Hello! Hello! I'm an undergraduate studying electrical engineering and applied mathematics at CU Boulder. My general interests lie in applied electromagnetics, particularly in radio frequency systems and antennas.">
             <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$ </title>
             <style>
                 $styles.html()$
