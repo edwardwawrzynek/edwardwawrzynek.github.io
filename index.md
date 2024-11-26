@@ -28,7 +28,7 @@ An interactive finite difference time domain solver for the 2d wave equation, de
 <a class="project_link" href="fdtd_wave_eq.html"></a>
 </div>
 <div class="project">
-<div><img src="images/2024-05-27-fractal-explorer/header.png"/></div>
+<div><img src="images/2024-05-27-fractal-explorer/header3.png"/></div>
 <div class="project_title"><a href="http://fractal.wawrzynek.com">Fractal Explorer</a></div>
 <div class="project_summary">
 Software for exploring, rendering, and animating fractals, including 2D iterated systems and 3D distance estimated systems.
