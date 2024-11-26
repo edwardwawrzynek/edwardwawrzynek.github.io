@@ -7,7 +7,7 @@ pagetitle:  Resume
 **BS, Electrical Engineering** and **Applied Mathematics**, Minor in Physics, University of Colorado Boulder, May 2026 (expected).
 <div>GPA: 4.0/4.0, Engineering Honors Program</div>
 
-# Skills
+# Technical Skills
 I am interested in applied electromagnetic, RF systems, and analog circuit design in general. I have mathematical interest in numerical methods for PDEs and non-linear dynamics.
 
 **Skills**: Circuit design, simulation (ADS, AWR), electromagnetics simulation (HFSS, FEKO), PCB design (Altium), experience with RF test equipment (VNAs, spectrum analyzers, antenna characterization)

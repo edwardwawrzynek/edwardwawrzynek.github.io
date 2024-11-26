@@ -16,26 +16,28 @@
             <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
         </head>
         <body>
-            <div class="header">
-                <div class="title_header">
-                    <a class="link_none" href="/">
-                        <span class="title_bold">Edward</span> Wawrzynek
-                    </a>
+            <div id="content">
+                <div class="header">
+                    <div class="title_header">
+                        <a class="link_none" href="/">
+                            <span class="title_bold">Edward</span> Wawrzynek
+                        </a>
+                    </div>
+                    <a class="header_link" href="/">home</a>
+                    <a class="header_link" href="/resume.html">cv</a>
                 </div>
-                <a class="header_link" href="/">home</a>
-                <a class="header_link" href="/resume.html">cv</a>
+
+                <hr/>
+                $if(backlink)$<p style="text-align: right;">$backlink$$endif$
+                $if(title)$<h1>$title$</h1>$endif$
+    $body$
+
+                <hr>
+                    <small>
+                <center>
+
+                </center>
+                    </small>
             </div>
-
-            <hr/>
-            $if(backlink)$<p style="text-align: right;">$backlink$$endif$
-            $if(title)$<h1>$title$</h1>$endif$
-$body$
-
-            <hr>
-                <small>
-            <center>
-
-            </center>
-                </small>
         </body>
 </html>

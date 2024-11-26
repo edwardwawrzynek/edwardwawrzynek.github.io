@@ -13,7 +13,7 @@ I'm currently with the [Antenna Research Group](https://www.colorado.edu/lab/ant
 
 In my free time, I enjoy taking [walks in the woods](/hiking.html), skiing, and biking. 
 
-I can be reached at <a href="mailto: edward@wawrzynek.com">edward@wawrzynek.com</a>.
+A copy of my resume is available [here](/resume.html). I can be reached at <a href="mailto: edward@wawrzynek.com">edward@wawrzynek.com</a>.
 
 # Projects
 

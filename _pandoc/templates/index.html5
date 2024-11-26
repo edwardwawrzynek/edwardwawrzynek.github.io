@@ -13,24 +13,30 @@
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
             <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/javascript" src="attractor.js"></script>
         </head>
         <body>
-            <div class="header">
-                <div class="title_header">
-                    <a class="link_none" href="/">
-                        <span class="title_bold">Edward</span> Wawrzynek
-                    </a>
+            <div id="content_box">
+            <div id="content">
+                <div class="header">
+                    <div class="title_header">
+                        <a class="link_none" href="/">
+                            <span class="title_bold">Edward</span> Wawrzynek
+                        </a>
+                    </div>
+                    <a class="header_link" href="/">home</a>
+                    <a class="header_link" href="/resume.html">cv</a>
                 </div>
-                <a class="header_link" href="/">home</a>
-                <a class="header_link" href="/resume.html">cv</a>
+    $body$
+
+                <hr>
+                    <small>
+                <center>
+
+                </center>
+                    </small>
             </div>
-$body$
-
-            <hr>
-                <small>
-            <center>
-
-            </center>
-                </small>
+            <canvas id="attractor_canvas" width="0px" height="0px"></canvas>
+            </div>
         </body>
 </html>
