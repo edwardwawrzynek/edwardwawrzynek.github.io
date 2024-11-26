@@ -7,7 +7,7 @@ window.onresize = init;
 let drawId = -1;
 
 // plotting bounds
-const bounds = [[-30, 30], [-30, 30], [0, 60]];
+const bounds = [[-35, 35], [-35, 35], [0, 60]];
 
 // projection matrix
 let viewVert = 4;
@@ -153,12 +153,15 @@ function draw_axes() {
 }
 
 
-let sys_pos = [[11.3, 0.68, 39.66]];
-let sys_times = [0];
+
 const sys_tol = 0.001;
 const sys_h = 0.001;
 const sys_max_h = 0.01;
 const sys_tstep = 0.04;
+
+const sys_max_points = 2000;
+
+let [sys_pos, sys_times] = solve_rk4(lorenz, [11, 0, 40], sys_h, 0, 3, sys_tol, sys_max_h);
 
 function draw_system() {
     const last_pos = sys_pos[sys_pos.length - 1];
@@ -166,10 +169,17 @@ function draw_system() {
 
     const [x, t] = solve_rk4(lorenz, last_pos, sys_h, last_time, last_time + sys_tstep, sys_tol, sys_max_h);
 
-    sys_pos = sys_pos.concat(x).slice(-1500);
-    sys_times = sys_times.concat(t).slice(-1500);
+    sys_pos = sys_pos.concat(x).slice(-sys_max_points);
+    sys_times = sys_times.concat(t).slice(-sys_max_points);
 
     for(let i = 0; i < sys_pos.length-1; i++) {
+        const p = (sys_pos.length - 1 - i) / sys_max_points;
+
+        const h = 0.47*p+0.3;
+        const s = 0.3;
+        const l = 1-0.6*Math.sin((Math.PI-0.2)*(p+0.2));
+
+        ctx.strokeStyle = "hsl(" + (h*360) + ", " + (s*100) + "%," + (l*100) + "%)";
         plot_line(sys_pos[i], sys_pos[i+1]);
     }
 }
@@ -177,7 +187,7 @@ function draw_system() {
 function draw() {
     draw_clear();
     // draw_axes();
-    
+    ctx.lineWidth = 1;
     draw_system();
 }
 
