@@ -1,4 +1,4 @@
-BASE_URL=
+BASE_URL=https://edward.wawrzynek.com
 
 PANDOC_ARGS=--from markdown-markdown_in_html_blocks+raw_html --no-highlight --shift-heading-level-by=1 --mathjax 
 
