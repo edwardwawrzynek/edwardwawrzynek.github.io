@@ -7,11 +7,11 @@ window.onresize = init;
 let drawId = -1;
 
 // plotting bounds
-const bounds = [[-35, 35], [-35, 35], [0, 60]];
+const bounds = [[-0.8, 0.8], [-2.9, 2.9], [-3, 3]];
 
 // projection matrix
-let viewVert = 4;
-let viewHoriz = -0.8;
+let viewVert = 0.2;
+let viewHoriz = 0.5;
 let projection = calc_projection_matrix(viewVert, viewHoriz);
 
 // calculate projection matrix (a about vertical, b about horizontal)
@@ -122,11 +122,11 @@ function solve_rk4(f, x0, h, tstart, tend, tol, hmax) {
     return [pts, times];
 }
 
+// the lorenz system
 const sigma = 10;
 const rho = 28;
 const beta = 8.0/3.0;
 
-// the lorenz system
 function lorenz(x) {
     return [
         sigma * (x[1] - x[0]),
@@ -135,11 +135,52 @@ function lorenz(x) {
     ];
 }
 
+// the chua circuit system
+const m00 = -0.55;
+const m01 = -0.5;
+const m10 = -0.8;
+const m11 = -0.84;
+const Bp0 = 0.9;
+const Bp1 = 1;
+
+function chua_diode(v) {
+    if(v < 0){
+        if(v > -Bp0) {
+            return m10*v;
+        } else {
+            return m10*-Bp0 + m00*(v+Bp0);
+        }
+    } else {
+        if(v < Bp1) {
+            return m11*v;
+        } else {
+            return m11*Bp1 + m01*(v-Bp1);
+        }
+    }
+    return m0*v + 0.5*(m1-m0)*Math.abs(v+Bp) + 0.5*(m0-m1)*Math.abs(v-Bp);
+}
+
+let R = 1/0.7;
+let C1 = 1.0;
+let C2 = 1.0/9.0;
+let L = 1.0/7.0;
+
+
+function chua(x) {
+    return [
+        1/(R*C1) * (-x[0] + x[1] - R*x[2]),
+        1/(R*C2) * (x[0] - x[1] - R*chua_diode(x[1])),
+        1/L * x[0]
+    ]
+}
+
 function draw_clear() {
     ctx.clearRect(0, 0, width, height);
 
     //viewVert += 0.005;
-    viewHoriz -= 0.001;
+    //viewHoriz -= 0.001;
+    //viewVert += 0.01;
+    viewHoriz += 0.001;
     projection = calc_projection_matrix(viewVert, viewHoriz);
 }
 
@@ -152,22 +193,22 @@ function draw_axes() {
     plot_line([0, 0, 0], [0, 0, 2]);
 }
 
-
-
 const sys_tol = 0.001;
 const sys_h = 0.001;
-const sys_max_h = 0.01;
-const sys_tstep = 0.04;
+const sys_max_h = 0.08;
+const sys_tstep = 0.15;
 
-const sys_max_points = 2000;
+const sys_max_points = 4000;
 
-let [sys_pos, sys_times] = solve_rk4(lorenz, [11, 0, 40], sys_h, 0, 3, sys_tol, sys_max_h);
+const ic = [0.1, 0, 0];
+
+let [sys_pos, sys_times] = solve_rk4(chua, ic, sys_h, 0, 200, sys_tol, sys_max_h);
 
 function draw_system() {
     const last_pos = sys_pos[sys_pos.length - 1];
     const last_time = sys_times[sys_times.length - 1];
 
-    const [x, t] = solve_rk4(lorenz, last_pos, sys_h, last_time, last_time + sys_tstep, sys_tol, sys_max_h);
+    const [x, t] = solve_rk4(chua, last_pos, sys_h, last_time, last_time + sys_tstep, sys_tol, sys_max_h);
 
     sys_pos = sys_pos.concat(x).slice(-sys_max_points);
     sys_times = sys_times.concat(t).slice(-sys_max_points);
@@ -175,9 +216,13 @@ function draw_system() {
     for(let i = 0; i < sys_pos.length-1; i++) {
         const p = (sys_pos.length - 1 - i) / sys_max_points;
 
-        const h = 0.47*p+0.3;
-        const s = 0.3;
-        const l = 1-0.6*Math.sin((Math.PI-0.2)*(p+0.2));
+        //const h = 0.47*p+0.3;
+        //const s = 0.3;
+        //const l = 1-0.6*Math.sin((Math.PI-0.2)*(p+0.2));
+
+        const h = 0.1;
+        const s = 0.8;
+        const l = 0.8*p+0.2;
 
         ctx.strokeStyle = "hsl(" + (h*360) + ", " + (s*100) + "%," + (l*100) + "%)";
         plot_line(sys_pos[i], sys_pos[i+1]);
@@ -186,8 +231,8 @@ function draw_system() {
 
 function draw() {
     draw_clear();
-    // draw_axes();
-    ctx.lineWidth = 1;
+    //draw_axes();
+    ctx.lineWidth = 0.5;
     draw_system();
 }
 

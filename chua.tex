@@ -1,0 +1,44 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[includehead, headheight=10mm, margin=15mm ]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{listings}
+\usepackage{circuitikz}
+
+\newcommand{\dif}{\mathrm{d}}
+
+\begin{document}
+
+% TODO: chua reference
+The simulation shown at the top of this page is the phase portrait of a chaotic circuit of the type first described by Chua in XXXX [X]. 
+
+\begin{center}
+    \begin{circuitikz} [american voltages]
+        \draw (-1, 0) 
+            to [L, l_=$L$, i^<=$i_1$] (-1, 2)
+            to [short] (1,2)
+            to [C, l=$C_1$] (1,0)
+            to [short] (-1,0)
+            (1,2) to [R, l=$R$, *-*] (4,2)
+            to [C, l=$C_2$] (4,0)
+            (1, 0) to [short, *-*] (4, 0)
+            to [short, -] (6, 0)
+            (4, 2) to [short, -] (6,2)
+            to [ageneric, l=$f$, i>^=$i_d$, v=$v_d$] (6, 0)
+            (0.3,0) to [open, v^<=$v_1$] (0.3,2)
+            (3.3,0) to [open, v^<=$v_2$] (3.3,2);
+    \end{circuitikz}
+\end{center}
+
+Consider the circuit shown above, where \(f\) is a diode with a I-V characteristic described by \(i_d = f(v_d)\), where \(f\) may be non-linear. The circuit is described by the coupled ODEs \begin{align*}
+    \frac{\dif v_1}{\dif t} &= \frac{1}{RC_1} \left(-v_1 + v_2 -Ri_1\right), \\
+    \frac{\dif v_2}{\dif t} &= \frac{1}{RC_2} \left(v_1 - v_2 -Rf(v_2) \right), \\
+    \frac{\dif i_1}{\dif t} &= \frac{1}{L} v_1.
+\end{align*}
+
+\end{document}
