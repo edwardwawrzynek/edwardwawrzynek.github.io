@@ -184,8 +184,15 @@ h1 {
 
 .contentNoMargin {
     margin-right: 0 !important;
+    margin-bottom: auto;
 }
 
 #attractor_canvas {
     margin-bottom: auto;
+}
+
+.photo_gallery {
+    a {
+        border-bottom: none !important;
+    }
 }

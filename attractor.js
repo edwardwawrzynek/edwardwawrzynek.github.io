@@ -11,7 +11,7 @@ const bounds = [[-0.8, 0.8], [-2.9, 2.9], [-3, 3]];
 
 // projection matrix
 let viewVert = 0.2;
-let viewHoriz = 0.5;
+let viewHoriz = 1.85;
 let projection = calc_projection_matrix(viewVert, viewHoriz);
 
 // calculate projection matrix (a about vertical, b about horizontal)
@@ -136,11 +136,11 @@ function lorenz(x) {
 }
 
 // the chua circuit system
-const m00 = -0.55;
+const m00 = -0.5;
 const m01 = -0.5;
 const m10 = -0.8;
-const m11 = -0.84;
-const Bp0 = 0.9;
+const m11 = -0.8;
+const Bp0 = 1;
 const Bp1 = 1;
 
 function chua_diode(v) {
@@ -180,7 +180,7 @@ function draw_clear() {
     //viewVert += 0.005;
     //viewHoriz -= 0.001;
     //viewVert += 0.01;
-    viewHoriz += 0.001;
+    viewHoriz -= 0.001;
     projection = calc_projection_matrix(viewVert, viewHoriz);
 }
 
@@ -242,6 +242,9 @@ function init() {
     canvas.width = 0;
     canvas.height = 0;
 
+    const contentHeight = content.getBoundingClientRect().height;
+    console.log(contentHeight);
+
     if(drawId != -1) {
         window.clearInterval(drawId);
     }
@@ -249,7 +252,13 @@ function init() {
 
     // make sure we have at least 200 free pixels
     width = window.innerWidth - content.offsetWidth - 130;
+    width = Math.min(width, 700);
+
     height = window.innerHeight;
+
+    // don't extend past end of content
+    height = Math.min(height, contentHeight);
+
     if(width < 200) {
         return;
     }
