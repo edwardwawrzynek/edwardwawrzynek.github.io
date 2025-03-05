@@ -16,7 +16,8 @@ In my free time, I enjoy taking [walks in the woods](/hiking.html).
 A copy of my resume is available [here](/resume.html). I can be reached at <a href="mailto: edward@wawrzynek.com">edward@wawrzynek.com</a>.
 
 # Publications
-1. <b>E. Wawrzynek</b>, S. Yen, and D. Filipovic, "Design of an Electrically Small Circularly Polarized Spherical Folded Helix Antenna", 2025 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM), Boulder, CO, USA 2025 (accepted).
+1. <b>E. Wawrzynek</b>, S. Yen, L. Boskovic, and D. Filipovic, "An Electrically Small Circularly Polarized Spherical Folded Helix Antenna for GPS", <i>2025 IEEE International Symposium on Antennas and Propagation and USNC-URSI Radio Science Meeting (APS/URSI)</i>, Ottawa, Canada 2025 (accepted).
+2. <b>E. Wawrzynek</b>, S. Yen, and D. Filipovic, "Design of an Electrically Small Circularly Polarized Spherical Folded Helix Antenna", <i>2025 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM)</i>, Boulder, CO, USA 2025.
 
 # Projects
 
