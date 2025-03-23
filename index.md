@@ -17,7 +17,7 @@ A copy of my resume is available [here](/resume.html). I can be reached at <a hr
 
 # Publications
 1. <b>E. Wawrzynek</b>, S. Yen, L. Boskovic, and D. Filipovic, "An Electrically Small Circularly Polarized Spherical Folded Helix Antenna for GPS", <i>2025 IEEE International Symposium on Antennas and Propagation and USNC-URSI Radio Science Meeting (APS/URSI)</i>, Ottawa, Canada 2025 (accepted).
-2. <b>E. Wawrzynek</b>, S. Yen, and D. Filipovic, "Design of an Electrically Small Circularly Polarized Spherical Folded Helix Antenna", <i>2025 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM)</i>, Boulder, CO, USA 2025.
+2. <b>E. Wawrzynek</b>, S. Yen and D. Filipovic, "<a href="https://ieeexplore.ieee.org/abstract/document/10907254">Design of an Electrically Small Circularly Polarized Spherical Folded Helix Antenna</a>," <i>2025 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM)</i>, Boulder, CO, USA, 2025, pp. 352-353, doi: 10.23919/USNC-URSINRSM66067.2025.10907254.
 
 # Projects
 
