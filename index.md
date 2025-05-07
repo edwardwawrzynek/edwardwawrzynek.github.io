@@ -21,7 +21,25 @@ A copy of my resume is available [here](/resume.html). I can be reached at <a hr
 
 # Projects
 
+<!-- header images should be 6 x 4.5 aspect ratio -->
+
 <div class="project_cont">
+<div class="project">
+<div><img src="images/leaky_wave_surface/icon.png"/></div>
+<div class="project_title"><a href="leaky_wave.html">Leaky-Wave Antenna from Periodically Modulated Capacitive Sheet</a></div>
+<div class="project_summary">
+Design and fabrication of a frequency scanned leaky-wave antenna at X-band (10 GHz) from a composite right and left handed material (CRLH).
+</div>
+<a class="project_link" href="leaky_wave.html"></a>
+</div>
+<div class="project">
+<div><img src="images/esa_helix/header2.png"/></div>
+<div class="project_title"><a href="/papers/esa_helix_aps25.pdf">Electrically Small Spherical Folded Helix Antenna for GPS</a></div>
+<div class="project_summary">
+Design and fabrication of a small ($\lambda/12$ diameter) spherical helix antenna for GPS with low axial ratio.
+</div>
+<a class="project_link" href="/papers/esa_helix_aps25.pdf"></a>
+</div>
 <div class="project">
 <div><img src="images/2024-05-28-fdtd-wave-equation/header.png"/></div>
 <div class="project_title"><a href="fdtd_wave.html">FDTD wave equation solver</a></div>
