@@ -5,7 +5,7 @@ template: index
 
 <p class="subtitle">University of Colorado Boulder</p>
 
-<img src="images/edward_wawrzynek.jpg" class="headshot" alt="Edward R. Wawrzynek"/>
+<img src="images/edward.jpg" class="headshot" alt="Edward R. Wawrzynek"/>
 
 Hello! I'm an undergraduate studying electrical engineering and applied mathematics at the [University of Colorado Boulder](https://www.colorado.edu). My general interests lie in applied electromagnetics, particularly in radio frequency systems and antennas.
 
