@@ -26,7 +26,7 @@ A copy of my resume is available [here](/resume.html). I can be reached at <a hr
 <div class="project_cont">
 <div class="project">
 <div><img src="images/leaky_wave_surface/icon.png"/></div>
-<div class="project_title"><a href="leaky_wave.html">Leaky-Wave Antenna from Periodically Modulated Capacitive Sheet</a></div>
+<div class="project_title"><a href="leaky_wave.html">Leaky-Wave Antenna from Periodically Modulated Reactance Surface</a></div>
 <div class="project_summary">
 Design and fabrication of a frequency scanned leaky-wave antenna at X-band (10 GHz) from a composite right and left handed material (CRLH).
 </div>
