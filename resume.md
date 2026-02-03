@@ -31,9 +31,9 @@ I am interested in applied electromagnetic, RF systems, and analog circuit desig
 - Lectured introductory electronics, helped students design and build freshman engineering projects.
 
 # Publications
-1. <b>E. Wawrzynek</b>, S. Yen, and D. Filipovic, "Design of Circular Array Lenses Through the Quasi-Conformal Transformation Optics", <i>2026 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM)</i>, Boulder, CO, USA, 2026 (accepted).
-2. S. Yen, <b>E. Wawrzynek</b>, and D. Filipovic, "On The Practicality of Superdirectivity in the HF Band," <i>2025 Antenna Applications Symposium,</i> Monticello, IL, USA, 2025.
-3. <b>E. Wawrzynek</b>, S. Yen, L. Boskovic, and D. Filipovic, "<a href="/papers/esa_helix_aps25.pdf">An Electrically Small Circularly Polarized Spherical Folded Helix Antenna for GPS</a>", <i>2025 IEEE International Symposium on Antennas and Propagation and USNC-URSI Radio Science Meeting (APS/URSI)</i>, Ottawa, ON, Canada, 2025, pp. 2047-2050, doi: <a href="https://ieeexplore.ieee.org/document/11266082">10.1109/AP-S/CNC-USNC-URSI55537.2025.11266082</a>.
+1. <b>E. Wawrzynek</b>, S. Yen, and D. Filipovic, "Design of Circular Array Lenses Through the Quasi-Conformal Transformation Optics," <i>2026 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM)</i>, Boulder, CO, USA, 2026.
+2. S. Yen, <b>E. Wawrzynek</b>, and D. Filipovic, "<a href="/papers/superdirective_allerton.pdf">On The Practicality of Superdirectivity in the HF Band</a>," <i>2025 Antenna Applications Symposium,</i> Monticello, IL, USA, 2025.
+3. <b>E. Wawrzynek</b>, S. Yen, L. Boskovic, and D. Filipovic, "<a href="/papers/esa_helix_aps25.pdf">An Electrically Small Circularly Polarized Spherical Folded Helix Antenna for GPS</a>," <i>2025 IEEE International Symposium on Antennas and Propagation and USNC-URSI Radio Science Meeting (APS/URSI)</i>, Ottawa, ON, Canada, 2025, pp. 2047-2050, doi: <a href="https://ieeexplore.ieee.org/document/11266082">10.1109/AP-S/CNC-USNC-URSI55537.2025.11266082</a>.
 4. <b>E. Wawrzynek</b>, S. Yen, and D. Filipovic, "<a href="/papers/esa_helix_ursi.pdf">Design of an Electrically Small Circularly Polarized Spherical Folded Helix Antenna</a>," <i>2025 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM)</i>, Boulder, CO, USA, 2025, pp. 352-353, doi: <a href="https://ieeexplore.ieee.org/abstract/document/10907254">10.23919/USNC-URSINRSM66067.2025.10907254</a>.
 
 # Technical Projects
