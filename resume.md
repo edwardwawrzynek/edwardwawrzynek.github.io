@@ -38,7 +38,7 @@ I am interested in applied electromagnetic, RF systems, and analog circuit desig
 
 ## Submitted
 5. <b>E. Wawrzynek</b>, S. Yen, and D. Filipovic, "Bandwidth Expansion of Circular Phased Arrays Through Quasi-Conformal Transformation Optics," submitted to the <i>2026 IEEE International Symposium on Antennas and Propagation and USNC-URSI Radio Science Meeting (APS/URSI)</i>, Detroit, MI, USA, 2026 (submitted).
-
+6. <b>E. Wawrzynek</b>, S. Yen, and D. Filipovic, "A Highly Directive Linear Array of Electrically Small Folded Helices," submitted to the <i>2026 2025 International Applied Computational Electromagnetics Society Symposium (ACES)</i>, Thessaloniki, Greece, 2026 (submitted).
 # Technical Projects
 
 [Wave Visualization Software](/fdtd_wave_eq.html)
