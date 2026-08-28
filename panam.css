@@ -101,6 +101,7 @@ h1 {
     width: 15rem;
     float: right;
     margin: 0 0 1rem 3rem;
+    border-radius: 5px;
 }
 
 @media (max-width: 900px){
@@ -108,7 +109,7 @@ h1 {
         float: none;
         margin: 0 auto;
         width: calc(min(50%, 250px));
-        border-radius: 50%;
+        border-radius: 20px;
     }
 
     .title_header {

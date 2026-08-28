@@ -11,7 +11,7 @@ const bounds = [[-0.8, 0.8], [-2.9, 2.9], [-3, 3]];
 
 // projection matrix
 let viewVert = 0.2;
-let viewHoriz = 1.85;
+let viewHoriz = 1.2;
 let projection = calc_projection_matrix(viewVert, viewHoriz);
 
 // calculate projection matrix (a about vertical, b about horizontal)
