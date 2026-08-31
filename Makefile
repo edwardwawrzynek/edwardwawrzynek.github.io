@@ -1,6 +1,6 @@
 BASE_URL=https://edward.wawrzynek.com
 
-PANDOC_ARGS=--from markdown-markdown_in_html_blocks+raw_html --syntax-highlighting=none --shift-heading-level-by=1 --mathjax --filter pandoc-include
+PANDOC_ARGS=--from markdown-markdown_in_html_blocks+raw_html --no-highlight --shift-heading-level-by=1 --mathjax --filter pandoc-include
 
 # There are no configurable options below this line, only the code of the generator itself.
 
@@ -17,13 +17,15 @@ ARTICLES_OUT=$(patsubst %.md, $(OUTPUT_DIR)/%.html, $(ARTICLES))
 RESOURCES=$(sort $(notdir $(shell find . -maxdepth 1 -type f -iname '[a-zA-Z0-9]*' -not -name 'Makefile' -not -iname '*.md')))
 RESOURCES_OUT=$(patsubst %, $(OUTPUT_DIR)/%, $(RESOURCES))
 
-FRAGMENTS=fragments
+FRAGMENTS=_fragments
+FRAGMENTS_SOURCE=$(wildcard $(FRAGMENTS)/*.py)
+FRAGMENTS_MD=$(FRAGMENTS_SOURCE:.py=.md)
 
 .PHONY: _build _clean $(SUBDIRS)
 _default: _build
 	@:
 
-_build: $(SUBDIRS) $(RESOURCES_OUT) $(ARTICLES_OUT)
+_build: $(FRAGMENTS_MD) $(SUBDIRS) $(RESOURCES_OUT) $(ARTICLES_OUT)
 
 _clean:
 	rm -rf $(OUTPUT_DIR)/*
@@ -32,7 +34,7 @@ _serve:
 	python3 -m http.server --directory _output 8000
 
 # Fragment rules
-$(FRAGMENTS)/%.md: $(FRAGMENTS)/%.yaml
+$(FRAGMENTS)/%.md: $(FRAGMENTS)/%.yaml $(FRAGMENTS)/%.py
 	cd $(FRAGMENTS) && python $*.py
 
 # Each markdown file is processed by Pandoc

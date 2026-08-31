@@ -14,7 +14,7 @@ In my free time, I enjoy taking [walks in the woods](/hiking.html).
 A copy of my resume is available [here](/resume.html). I can be reached at <a href="mailto: edward@wawrzynek.com">edward@wawrzynek.com</a>. 
 
 # Publications
-!include fragments/publications.md
+!include _fragments/publications.md
 
 # Projects
 <!-- header images should be 6 x 4.5 aspect ratio -->

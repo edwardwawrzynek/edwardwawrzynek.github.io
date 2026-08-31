@@ -31,7 +31,7 @@ I am interested in applied electromagnetic, RF systems, and analog circuit desig
 - Lectured introductory electronics, helped students design and build freshman engineering projects.
 
 # Publications
-!include fragments/publications.md
+!include _fragments/publications.md
 
 # Technical Projects
 
