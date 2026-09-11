@@ -58,3 +58,10 @@ conferences:
         date: 2026
         link: /papers/qcto_array26.pdf
         status: accepted
+    
+    -   title: A Compact Circular Phased Array of Spherical Folded Helices for HF Communication
+        authors: [edward, songyi, filip]
+        conference: 2027 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM)
+        location: Boulder, CO, USA
+        date: 2027
+        status: submitted
