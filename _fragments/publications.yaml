@@ -50,6 +50,8 @@ conferences:
         location:  Detroit, MI, USA
         date: 2026
         link: /papers/qcto_aps26.pdf
+        pages: [853, 856]
+        doi: 10.1109/AP-S/USNC-URSI60190.2026.11675769
     
     -   title: An Ultrawideband Hybrid TEM-Horn Loop Circular Phased Array Enabled by Lens Loading
         authors: [edward, songyi, filip]
